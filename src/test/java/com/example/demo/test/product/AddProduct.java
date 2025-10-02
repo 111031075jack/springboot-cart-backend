@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.cart.model.entity.Product;
 import com.example.demo.cart.model.entity.ProductImage;
+//import com.example.demo.cart.repository.ProductImageRepository;
 import com.example.demo.cart.repository.ProductRepository;
 
 @SpringBootTest
@@ -13,6 +14,9 @@ public class AddProduct {
 	
 	@Autowired
 	ProductRepository productRepository;
+	
+	//@Autowired
+	//ProductImageRepository productImageRepository;
 	
 	@Test
 	void add() {
@@ -37,6 +41,9 @@ public class AddProduct {
 		banana.setProductImage(bananaImage);
 		
 		// 儲存商品
+		//productImageRepository.save(appleImage);
+		//productImageRepository.save(bananaImage);
+		
 		productRepository.save(apple);
 		productRepository.save(banana);
 		

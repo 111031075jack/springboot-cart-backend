@@ -2,11 +2,14 @@ package com.example.demo.cart.model.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -22,9 +25,17 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	
+	
 	// FetchType.EAGER 代表查找 order 的同時會一並查找 orderItem
-	// FetchType.LAZY 代表查找 order 的同時不會一並查找 orderItem
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+	// FetchType.LAZY 代表查找 order 的同時不會查找 orderItem
+	// cascade 代表連動關係
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<OrderItem> orderItems;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	
 }

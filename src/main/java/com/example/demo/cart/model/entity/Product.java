@@ -1,12 +1,19 @@
 package com.example.demo.cart.model.entity;
 
+import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -32,5 +39,16 @@ public class Product {
 	@JoinColumn(name = "product_image_id")
 	private ProductImage productImage;
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<OrderItem> orderItems;
+	
+	// 建立用戶可以關注商品的多對多關係
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "user_product",
+		joinColumns = @JoinColumn(name = "user_id"), // user 主鍵
+		inverseJoinColumns = @JoinColumn(name = "product_id") // product 主鍵
+	)
+	private Set<Product> favoriteProducts;
 	
 }

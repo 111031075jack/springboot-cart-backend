@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -42,13 +41,8 @@ public class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<OrderItem> orderItems;
 	
-	// 建立用戶可以關注商品的多對多關係
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name = "user_product",
-		joinColumns = @JoinColumn(name = "user_id"), // user 主鍵
-		inverseJoinColumns = @JoinColumn(name = "product_id") // product 主鍵
-	)
-	private Set<Product> favoriteProducts;
+	@ManyToMany(mappedBy = "favoriteProducts")
+	private Set<User> favoriteUsers;
+	
 	
 }

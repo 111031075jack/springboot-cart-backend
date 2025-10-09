@@ -2,6 +2,7 @@ package com.example.demo.cart.service;
 
 import java.util.List;
 
+import com.example.demo.cart.exception.LoginException;
 import com.example.demo.cart.exception.UserNotFoundException;
 import com.example.demo.cart.model.dto.FavoriteProductDTO;
 import com.example.demo.cart.model.dto.FavoriteUserDTO;
@@ -13,7 +14,7 @@ public interface UserService {
 	UserDTO findByUsername(String username) throws UserNotFoundException;
 	
 	// 登入
-	UserDTO login(LoginDTO loginDTO);
+	UserDTO login(LoginDTO loginDTO) throws LoginException;
 	
 	// 儲存
 	UserDTO saveUser(UserDTO userDTO);
